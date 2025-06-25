@@ -2,7 +2,7 @@ package io.github.kayden.dlq.domain
 
 import io.github.kayden.dlq.domain.enums.DLQStatus
 import java.time.Instant
-import javax.persistence.*
+import jakarta.persistence.*
 
 /**
  * DLQ 메시지 엔티티

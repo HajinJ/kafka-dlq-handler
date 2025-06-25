@@ -1,0 +1,58 @@
+{
+  "properties": [
+    {
+      "name": "kafka.dlq.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable Kafka DLQ Handler functionality",
+      "defaultValue": true
+    },
+    {
+      "name": "kafka.dlq.topic-pattern",
+      "type": "java.lang.String",
+      "description": "Regex pattern to match DLQ topics",
+      "defaultValue": ".*\\.DLQ"
+    },
+    {
+      "name": "kafka.dlq.storage.external-bucket",
+      "type": "java.lang.String",
+      "description": "External storage bucket/path for large messages",
+      "defaultValue": "dlq-payloads"
+    },
+    {
+      "name": "kafka.dlq.storage.enable-external-storage",
+      "type": "java.lang.Boolean",
+      "description": "Enable external storage for large messages",
+      "defaultValue": true
+    },
+    {
+      "name": "kafka.dlq.processing.workers",
+      "type": "java.lang.Integer",
+      "description": "Number of processing workers (0 for auto)",
+      "defaultValue": 0
+    },
+    {
+      "name": "kafka.dlq.processing.batch-size",
+      "type": "java.lang.Integer",
+      "description": "Batch size for message processing",
+      "defaultValue": 1000
+    },
+    {
+      "name": "kafka.dlq.processing.flush-interval-ms",
+      "type": "java.lang.Long",
+      "description": "Batch flush interval in milliseconds",
+      "defaultValue": 5000
+    },
+    {
+      "name": "kafka.dlq.processing.large-message-threshold",
+      "type": "java.lang.Integer",
+      "description": "Threshold for large messages in bytes",
+      "defaultValue": 102400
+    },
+    {
+      "name": "kafka.dlq.processing.auto-optimize",
+      "type": "java.lang.Boolean",
+      "description": "Enable automatic optimization based on traffic",
+      "defaultValue": true
+    }
+  ]
+}
