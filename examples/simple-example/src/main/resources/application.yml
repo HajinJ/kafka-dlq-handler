@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: kafka-dlq-handler-example
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: example-group
+      
+logging:
+  level:
+    io.github.kayden: DEBUG
