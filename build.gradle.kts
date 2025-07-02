@@ -24,8 +24,8 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "org.jetbrains.dokka")
 
-    // Spring Boot BOM 적용 (버전 관리만)
-    if (name.startsWith("kafka-dlq-handler-") || name.contains("example")) {
+    // Spring Boot BOM 적용 (버전 관리만) - Core 모듈 제외
+    if ((name.startsWith("kafka-dlq-handler-") && name != "kafka-dlq-handler-core") || name.contains("example")) {
         apply(plugin = "io.spring.dependency-management")
 
         configure<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension> {
@@ -38,7 +38,7 @@ subprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "21"
+            jvmTarget = "17"
         }
     }
 
@@ -48,7 +48,7 @@ subprojects {
 
     configure<JavaPluginExtension> {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(21))
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
 }
