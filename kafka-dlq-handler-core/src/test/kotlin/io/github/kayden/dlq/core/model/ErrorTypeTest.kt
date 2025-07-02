@@ -55,35 +55,35 @@ class ErrorTypeTest {
     @DisplayName("에러 타입별 권장 백오프 전략을 올바르게 반환한다")
     fun shouldReturnCorrectBackoffStrategy() {
         assertEquals(
-            BackoffStrategy.EXPONENTIAL,
+            BackoffStrategy.Exponential.DEFAULT,
             ErrorType.TRANSIENT_NETWORK_ERROR.recommendedBackoffStrategy()
         )
         assertEquals(
-            BackoffStrategy.EXPONENTIAL_WITH_JITTER,
+            BackoffStrategy.ExponentialWithJitter.DEFAULT,
             ErrorType.TRANSIENT_SERVICE_ERROR.recommendedBackoffStrategy()
         )
         assertEquals(
-            BackoffStrategy.LINEAR,
+            BackoffStrategy.Linear.DEFAULT,
             ErrorType.RESOURCE_EXHAUSTED.recommendedBackoffStrategy()
         )
         assertEquals(
-            BackoffStrategy.FIXED,
+            BackoffStrategy.Fixed.ONE_MINUTE,
             ErrorType.AUTHENTICATION_ERROR.recommendedBackoffStrategy()
         )
         assertEquals(
-            BackoffStrategy.NONE,
+            BackoffStrategy.None,
             ErrorType.PERMANENT_FAILURE.recommendedBackoffStrategy()
         )
         assertEquals(
-            BackoffStrategy.NONE,
+            BackoffStrategy.None,
             ErrorType.SERIALIZATION_ERROR.recommendedBackoffStrategy()
         )
         assertEquals(
-            BackoffStrategy.NONE,
+            BackoffStrategy.None,
             ErrorType.VALIDATION_ERROR.recommendedBackoffStrategy()
         )
         assertEquals(
-            BackoffStrategy.NONE,
+            BackoffStrategy.None,
             ErrorType.UNKNOWN.recommendedBackoffStrategy()
         )
     }

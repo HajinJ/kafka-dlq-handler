@@ -1,6 +1,5 @@
 package io.github.kayden.dlq.core.model
 
-import kotlin.math.min
 import kotlin.math.pow
 import kotlin.random.Random
 import kotlin.time.Duration
@@ -83,7 +82,9 @@ sealed class BackoffStrategy {
             require(attemptNumber > 0) { "Attempt number must be positive" }
             
             val delay = initialDelay + increment * (attemptNumber - 1)
-            return maxDelay?.let { min(delay, it) } ?: delay
+            return maxDelay?.let { max -> 
+                if (delay > max) max else delay
+            } ?: delay
         }
         
         companion object {
@@ -126,7 +127,9 @@ sealed class BackoffStrategy {
                 multiplier.pow(attemptNumber - 1).toLong()
             val delay = delayMillis.milliseconds
             
-            return maxDelay?.let { min(delay, it) } ?: delay
+            return maxDelay?.let { max ->
+                if (delay > max) max else delay
+            } ?: delay
         }
         
         companion object {
@@ -268,7 +271,8 @@ sealed class BackoffStrategy {
                         curr = next
                     }
                     val delay = baseDelay.inWholeMilliseconds * curr
-                    min(delay.milliseconds, maxDelay)
+                    val delayDuration = delay.milliseconds
+                    if (delayDuration > maxDelay) maxDelay else delayDuration
                 }
             }
         }

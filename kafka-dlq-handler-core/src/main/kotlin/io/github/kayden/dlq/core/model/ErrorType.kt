@@ -93,11 +93,11 @@ enum class ErrorType {
      */
     fun recommendedBackoffStrategy(): BackoffStrategy {
         return when (this) {
-            TRANSIENT_NETWORK_ERROR -> BackoffStrategy.EXPONENTIAL
-            TRANSIENT_SERVICE_ERROR -> BackoffStrategy.EXPONENTIAL_WITH_JITTER
-            RESOURCE_EXHAUSTED -> BackoffStrategy.LINEAR
-            AUTHENTICATION_ERROR -> BackoffStrategy.FIXED
-            else -> BackoffStrategy.NONE
+            TRANSIENT_NETWORK_ERROR -> BackoffStrategy.Exponential.DEFAULT
+            TRANSIENT_SERVICE_ERROR -> BackoffStrategy.ExponentialWithJitter.DEFAULT
+            RESOURCE_EXHAUSTED -> BackoffStrategy.Linear.DEFAULT
+            AUTHENTICATION_ERROR -> BackoffStrategy.Fixed.ONE_MINUTE
+            else -> BackoffStrategy.None
         }
     }
     
@@ -161,33 +161,3 @@ enum class ErrorType {
     }
 }
 
-/**
- * 백오프 전략을 정의하는 열거형.
- */
-enum class BackoffStrategy {
-    /**
-     * 백오프 없음. 즉시 재시도.
-     */
-    NONE,
-    
-    /**
-     * 고정 지연. 항상 동일한 시간 대기.
-     */
-    FIXED,
-    
-    /**
-     * 선형 증가. 재시도마다 일정하게 지연 시간 증가.
-     */
-    LINEAR,
-    
-    /**
-     * 지수 증가. 재시도마다 지연 시간을 2배씩 증가.
-     */
-    EXPONENTIAL,
-    
-    /**
-     * 지터를 포함한 지수 증가. 
-     * 여러 인스턴스의 동시 재시도를 방지하기 위한 무작위 요소 포함.
-     */
-    EXPONENTIAL_WITH_JITTER
-}
