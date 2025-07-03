@@ -17,6 +17,9 @@ dependencies {
     // 테스트
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("io.mockk:mockk:1.13.8")
 }
