@@ -8,6 +8,9 @@ import io.github.kayden.dlq.core.performance.AdaptiveBackpressureStrategy
 import io.github.kayden.dlq.core.performance.TokenBucketRateLimiter
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.minutes
 import org.junit.jupiter.api.Test
 import java.time.Duration
 import java.util.UUID
@@ -211,7 +214,7 @@ class DLQHandlerDslTest {
             }
             
             errorHandling {
-                on<RuntimeException> { record, error ->
+                on(RuntimeException::class.java) { record, error ->
                     errorHandled = true
                 }
             }

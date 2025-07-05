@@ -3,7 +3,10 @@ package io.github.kayden.dlq.core.dsl
 import io.github.kayden.dlq.core.model.DLQRecord
 import io.github.kayden.dlq.core.model.ErrorType
 import kotlinx.coroutines.runBlocking
-import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.days
 
 
 /**
@@ -84,12 +87,12 @@ object DLQHandlerDslExamples {
                 
                 batch {
                     size = 10
-                    timeout(5.let { Duration.milliseconds(it.toLong()) })
+                    timeout(5.milliseconds)
                 }
             }
             
             processing {
-                timeout = Duration.milliseconds(100)
+                timeout = 100.milliseconds
                 
                 processor { record ->
                     // Fast processing logic
@@ -131,7 +134,7 @@ object DLQHandlerDslExamples {
                     circuitBreaker {
                         failureThreshold = 10
                         failureRateThreshold = 0.5
-                        timeout(Duration.seconds(30))
+                        timeout(30.seconds)
                         halfOpenRequests = 5
                     }
                 }
@@ -154,8 +157,8 @@ object DLQHandlerDslExamples {
                     
                     // Exponential backoff with jitter
                     exponential {
-                        initialDelay = Duration.seconds(1)
-                        maxDelay = Duration.minutes(5)
+                        initialDelay = 1.seconds
+                        maxDelay = 5.minutes
                         multiplier = 2.0
                         withJitter = true
                     }
@@ -215,11 +218,11 @@ object DLQHandlerDslExamples {
                     
                     pool {
                         size = 20
-                        timeout(Duration.seconds(5))
+                        timeout(5.seconds)
                     }
                     
                     // Auto-expire old messages
-                    expireKeys(Duration.days(7))
+                    expireKeys(7.days)
                     keyPrefix = "dlq:production:"
                 }
             }
@@ -228,7 +231,7 @@ object DLQHandlerDslExamples {
                 // Redis works well with batch operations
                 batch {
                     size = 100
-                    timeout(Duration.milliseconds(50))
+                    timeout(50.milliseconds)
                 }
             }
         }
@@ -263,7 +266,7 @@ object DLQHandlerDslExamples {
             performance {
                 batch {
                     size = 500 // Match database batch size
-                    timeout(Duration.milliseconds(200))
+                    timeout(200.milliseconds)
                 }
             }
         }
@@ -303,7 +306,7 @@ object DLQHandlerDslExamples {
         val handler = dlqHandler {
             metrics {
                 enabled = true
-                interval(Duration.seconds(10))
+                interval(10.seconds)
                 includeHistograms = true
                 includePercentiles = true
                 
@@ -342,7 +345,7 @@ object DLQHandlerDslExamples {
                 batch {
                     size = 1000
                     minSize = 100
-                    timeout(Duration.milliseconds(100))
+                    timeout(100.milliseconds)
                     adaptive = true
                 }
                 
@@ -368,7 +371,7 @@ object DLQHandlerDslExamples {
                     circuitBreaker {
                         failureThreshold = 20
                         failureRateThreshold = 0.3
-                        timeout(Duration.minutes(1))
+                        timeout(1.minutes)
                         slidingWindowSize = 1000
                     }
                 }
@@ -391,13 +394,13 @@ object DLQHandlerDslExamples {
                 retry {
                     maxAttempts = 5
                     exponential {
-                        initialDelay = Duration.seconds(1)
-                        maxDelay = Duration.minutes(5)
+                        initialDelay = 1.seconds
+                        maxDelay = 5.minutes
                         withJitter = true
                     }
                 }
                 
-                timeout = Duration.seconds(30)
+                timeout = 30.seconds
                 
                 processor { record ->
                     // Actual message processing
@@ -411,7 +414,7 @@ object DLQHandlerDslExamples {
                 
                 deduplication {
                     enabled = true
-                    window(Duration.minutes(10))
+                    window(10.minutes)
                     keyExtractor = { "${it.originalTopic}:${it.messageKey}" }
                 }
             }
@@ -434,7 +437,7 @@ object DLQHandlerDslExamples {
             
             metrics {
                 enabled = true
-                interval(Duration.seconds(30))
+                interval(30.seconds)
                 
                 tags(
                     "env" to "production",

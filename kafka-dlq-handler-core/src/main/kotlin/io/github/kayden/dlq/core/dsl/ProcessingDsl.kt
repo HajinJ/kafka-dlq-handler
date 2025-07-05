@@ -7,6 +7,8 @@ import io.github.kayden.dlq.core.model.ErrorType
 import java.time.Duration
 import kotlin.time.Duration as KotlinDuration
 import kotlin.time.toJavaDuration
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.minutes
 
 
 /**
@@ -185,8 +187,8 @@ class RetryConfigBuilder {
  */
 @DLQHandlerDslMarker
 class ExponentialBackoffBuilder {
-    var initialDelay: KotlinDuration = KotlinDuration.seconds(1)
-    var maxDelay: KotlinDuration = KotlinDuration.seconds(60)
+    var initialDelay: KotlinDuration = 1.seconds
+    var maxDelay: KotlinDuration = 60.seconds
     var multiplier: Double = 2.0
     var withJitter: Boolean = false
     
@@ -217,9 +219,9 @@ class ExponentialBackoffBuilder {
  */
 @DLQHandlerDslMarker
 class LinearBackoffBuilder {
-    var initialDelay: KotlinDuration = KotlinDuration.seconds(1)
-    var increment: KotlinDuration = KotlinDuration.seconds(1)
-    var maxDelay: KotlinDuration = KotlinDuration.seconds(60)
+    var initialDelay: KotlinDuration = 1.seconds
+    var increment: KotlinDuration = 1.seconds
+    var maxDelay: KotlinDuration = 60.seconds
     
     /**
      * Builds the backoff strategy.
