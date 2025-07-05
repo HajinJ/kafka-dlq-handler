@@ -43,7 +43,7 @@ class DLQHandlerDslTest {
                 
                 batch {
                     size = 5000
-                    timeout = 200.milliseconds
+                    timeout(200.milliseconds)
                     adaptive = true
                 }
                 
@@ -138,7 +138,7 @@ class DLQHandlerDslTest {
                 backpressure {
                     circuitBreaker {
                         failureThreshold = 10
-                        timeout = 30.seconds
+                        timeout(30.seconds)
                         halfOpenRequests = 5
                     }
                 }
@@ -157,7 +157,7 @@ class DLQHandlerDslTest {
                 inMemory {
                     maxSize = 100_000
                     evictionPolicy = EvictionPolicy.LRU
-                    ttl = 30.minutes
+                    ttl(30.minutes)
                 }
             }
         }
@@ -240,7 +240,7 @@ class DLQHandlerDslTest {
                 mode = ProcessingMode.BATCH
                 batch {
                     size = 10
-                    timeout = 100.milliseconds
+                    timeout(100.milliseconds)
                 }
             }
             
@@ -291,7 +291,7 @@ class DLQHandlerDslTest {
         val handler = dlqHandler {
             metrics {
                 enabled = true
-                interval = 1.seconds
+                interval(1.seconds)
             }
         }
         
