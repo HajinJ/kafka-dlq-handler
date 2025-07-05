@@ -154,23 +154,35 @@ Kafka DLQ Handler - 대규모 트래픽을 처리할 수 있는 고성능 Kotlin
 #### Kotlin DSL (Day 7) - 2025-07-05
 - [x] DLQHandler DSL
     - 브랜치: feat/kotlin-dsl
-    - 메인 DSL 엔트리 포인트 구현
+    - 메인 DSL 엔트리 포인트 구현 (DLQHandlerDsl.kt: 300줄)
     - Type-safe builder 패턴
     - 3가지 처리 모드 지원 (Batch, Parallel, Hybrid)
+    - 모든 고성능 컴포넌트 통합
 - [x] Performance DSL
+    - PerformanceDsl.kt: 405줄
     - 성능 설정을 위한 플루언트 API
     - 프리셋 지원 (highThroughput, lowLatency)
     - 백프레셔, 레이트 리미팅, 서킷 브레이커 설정
+    - 적응형 백프레셔 전략 구성
 - [x] Storage DSL
+    - StorageDsl.kt: 418줄
     - 다양한 스토리지 백엔드 설정
     - InMemory, Redis, Database 설정 지원
     - 커스텀 스토리지 구현 지원
+    - 연결 풀 및 배치 설정
 - [x] Processing & Error Handling DSL
-    - 재시도 정책 설정
-    - 에러 핸들링 전략
+    - ProcessingDsl.kt: 428줄
+    - 재시도 정책 설정 (exponential, linear, fixed)
+    - 타입별 에러 핸들링
     - 중복 제거 설정
-- [x] 구현 및 테스트
-    - DLQHandlerImplementations: 3가지 핸들러 구현
+    - 메트릭 수집 설정
+- [x] DSL 구현체 및 예제
+    - DLQHandlerImplementations.kt: 인터페이스 구현
+    - DLQHandlerDslExamples.kt: 507줄, 10개의 포괄적인 사용 예제
+    - Duration 타입 충돌 해결 (Kotlin vs Java)
+- [x] 테스트 작성
+    - DLQHandlerDslTest: DSL 기능 검증
+    - 컴파일 에러 해결 및 타입 안정성 확보
     - DLQHandlerDslTest: 14개 테스트
     - DLQHandlerDslExamples: 10개 사용 예제
 
