@@ -1,0 +1,212 @@
+{
+  "groups": [
+    {
+      "name": "kafka.dlq",
+      "type": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "sourceType": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "description": "Kafka DLQ Handler configuration properties"
+    },
+    {
+      "name": "kafka.dlq.storage",
+      "type": "io.github.kayden.dlq.config.StorageProperties",
+      "sourceType": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "sourceMethod": "getStorage()",
+      "description": "Storage configuration for DLQ messages"
+    },
+    {
+      "name": "kafka.dlq.retention",
+      "type": "io.github.kayden.dlq.config.RetentionProperties",
+      "sourceType": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "sourceMethod": "getRetention()",
+      "description": "Retention policy configuration"
+    },
+    {
+      "name": "kafka.dlq.reprocessing",
+      "type": "io.github.kayden.dlq.config.ReprocessingProperties",
+      "sourceType": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "sourceMethod": "getReprocessing()",
+      "description": "Message reprocessing configuration"
+    },
+    {
+      "name": "kafka.dlq.monitoring",
+      "type": "io.github.kayden.dlq.config.MonitoringProperties",
+      "sourceType": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "sourceMethod": "getMonitoring()",
+      "description": "Monitoring and metrics configuration"
+    },
+    {
+      "name": "kafka.dlq.api",
+      "type": "io.github.kayden.dlq.config.ApiProperties",
+      "sourceType": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "sourceMethod": "getApi()",
+      "description": "REST API configuration"
+    },
+    {
+      "name": "kafka.dlq.security",
+      "type": "io.github.kayden.dlq.config.SecurityProperties",
+      "sourceType": "io.github.kayden.dlq.config.DLQConfigurationProperties",
+      "sourceMethod": "getSecurity()",
+      "description": "Security configuration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "kafka.dlq.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "Enable or disable DLQ processing"
+    },
+    {
+      "name": "kafka.dlq.auto-create-topic",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "Automatically create DLQ topics if they don't exist"
+    },
+    {
+      "name": "kafka.dlq.topic-pattern",
+      "type": "java.lang.String",
+      "defaultValue": ".*\\.DLQ",
+      "description": "Regular expression pattern to match DLQ topics"
+    },
+    {
+      "name": "kafka.dlq.storage.type",
+      "type": "io.github.kayden.dlq.config.StorageType",
+      "defaultValue": "JPA",
+      "description": "Storage type for DLQ messages (JPA or MONGODB)"
+    },
+    {
+      "name": "kafka.dlq.storage.batch-size",
+      "type": "java.lang.Integer",
+      "defaultValue": 100,
+      "description": "Batch size for storing messages"
+    },
+    {
+      "name": "kafka.dlq.retention.days",
+      "type": "java.lang.Integer",
+      "defaultValue": 30,
+      "description": "Number of days to retain DLQ messages"
+    },
+    {
+      "name": "kafka.dlq.retention.max-messages",
+      "type": "java.lang.Long",
+      "defaultValue": 1000000,
+      "description": "Maximum number of messages to retain"
+    },
+    {
+      "name": "kafka.dlq.retention.cleanup-cron",
+      "type": "java.lang.String",
+      "defaultValue": "0 0 2 * * *",
+      "description": "Cron expression for cleanup schedule"
+    },
+    {
+      "name": "kafka.dlq.reprocessing.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "Enable message reprocessing functionality"
+    },
+    {
+      "name": "kafka.dlq.reprocessing.default-max-retries",
+      "type": "java.lang.Integer",
+      "defaultValue": 3,
+      "description": "Default maximum number of retry attempts"
+    },
+    {
+      "name": "kafka.dlq.reprocessing.default-backoff",
+      "type": "io.github.kayden.dlq.config.BackoffType",
+      "defaultValue": "EXPONENTIAL",
+      "description": "Default backoff strategy (FIXED, EXPONENTIAL, LINEAR)"
+    },
+    {
+      "name": "kafka.dlq.reprocessing.initial-delay-seconds",
+      "type": "java.lang.Long",
+      "defaultValue": 1,
+      "description": "Initial delay between retries in seconds"
+    },
+    {
+      "name": "kafka.dlq.reprocessing.max-delay-minutes",
+      "type": "java.lang.Long",
+      "defaultValue": 5,
+      "description": "Maximum delay between retries in minutes"
+    },
+    {
+      "name": "kafka.dlq.monitoring.metrics-enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "Enable metrics collection"
+    },
+    {
+      "name": "kafka.dlq.monitoring.alert-threshold",
+      "type": "java.lang.Integer",
+      "defaultValue": 1000,
+      "description": "Number of messages that triggers an alert"
+    },
+    {
+      "name": "kafka.dlq.api.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "Enable REST API endpoints"
+    },
+    {
+      "name": "kafka.dlq.api.base-path",
+      "type": "java.lang.String",
+      "defaultValue": "/api/v1/dlq",
+      "description": "Base path for REST API endpoints"
+    },
+    {
+      "name": "kafka.dlq.api.max-page-size",
+      "type": "java.lang.Integer",
+      "defaultValue": 100,
+      "description": "Maximum page size for API responses"
+    },
+    {
+      "name": "kafka.dlq.api.default-page-size",
+      "type": "java.lang.Integer",
+      "defaultValue": 20,
+      "description": "Default page size for API responses"
+    },
+    {
+      "name": "kafka.dlq.security.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "Enable security features"
+    },
+    {
+      "name": "kafka.dlq.security.allowed-roles",
+      "type": "java.util.List",
+      "defaultValue": ["ADMIN", "DLQ_OPERATOR"],
+      "description": "List of roles allowed to access DLQ operations"
+    }
+  ],
+  "hints": [
+    {
+      "name": "kafka.dlq.storage.type",
+      "values": [
+        {
+          "value": "JPA",
+          "description": "Use JPA/Hibernate for storage"
+        },
+        {
+          "value": "MONGODB",
+          "description": "Use MongoDB for storage (requires MongoDB dependency)"
+        }
+      ]
+    },
+    {
+      "name": "kafka.dlq.reprocessing.default-backoff",
+      "values": [
+        {
+          "value": "FIXED",
+          "description": "Fixed delay between retries"
+        },
+        {
+          "value": "EXPONENTIAL",
+          "description": "Exponentially increasing delay between retries"
+        },
+        {
+          "value": "LINEAR",
+          "description": "Linearly increasing delay between retries"
+        }
+      ]
+    }
+  ]
+}

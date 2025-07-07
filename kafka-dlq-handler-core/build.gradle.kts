@@ -1,37 +1,36 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.spring")
-    kotlin("plugin.jpa")
-    id("io.spring.dependency-management")
-    `java-library`  // java-library 플러그인 추가
+    `java-library`
 }
 
 dependencies {
-    api("org.springframework.boot:spring-boot-starter")
-    api("org.springframework.kafka:spring-kafka")
-    api("org.springframework.boot:spring-boot-starter-data-jpa")
-
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // Core 모듈은 프레임워크 독립적이므로 Spring 의존성 없음
+    
+    // Kotlin 기본
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-    // 어노테이션 프로세서
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-
+    
+    // Coroutines
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.7.3")
+    
     // 테스트
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.kafka:spring-kafka-test")
-    testImplementation("org.testcontainers:testcontainers")
-    testImplementation("org.testcontainers:kafka")
-    testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("com.h2database:h2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("io.mockk:mockk:1.13.8")
+    
+    // Kotest
+    testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.7.2")
+    testImplementation("io.kotest:kotest-property:5.7.2")
 }
 
-allOpen {
-    annotation("jakarta.persistence.Entity")
-    annotation("jakarta.persistence.MappedSuperclass")
-    annotation("jakarta.persistence.Embeddable")
+tasks.test {
+    useJUnitPlatform()
 }
 
 // bootJar 관련 코드 제거하고 다음으로 교체
